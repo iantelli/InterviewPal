@@ -3,7 +3,6 @@ import {OpenAIStreamService} from "@/lib/server/services/openAIStream.service";
 import {UserRepository} from "@/lib/server/repositories/user.repository";
 import {AssessAllInterviewQuestionsPayload, InterviewQuestionSubmissionPayload} from "@/lib/shared/dtos";
 import {InterviewQuestion} from "@/lib/shared/models/interview.models";
-import str from 'string-to-stream';
 import {InterviewRepository} from "@/lib/server/repositories/interview.repository";
 
 type questionType = "introductory" | "technical";
@@ -85,7 +84,14 @@ Please grade my answer and give me feedback. Do not leave pros and cons array em
                 I had an interview and These are my answers to the questions:
                 ${content}
                 
-Please grade my answer and give me feedback. Do not provide a summary paragraph and respond in pure JSON parsable by JSON.parse in JavaScript.` }
+Please grade my answer and give me feedback. Do not provide a summary paragraph and respond in pure JSON parsable by JSON.parse in JavaScript, and make sure there are no trailing-commas
+
+{
+    "pros": "",
+    "cons": [],
+    "grade": 0,
+    "overall": ""
+}` }
             ],
             temperature: 0.6,
             top_p: 1,
